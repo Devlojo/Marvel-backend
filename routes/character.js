@@ -2,10 +2,14 @@ const express = require("express");
 require("dotenv").config();
 const axios = require("axios");
 const router = express.Router();
-router.get("/", async (req, res) => {
+router.get("/characters", async (req, res) => {
   try {
+    const limit = req.query.limit || 100;
+    const skip = req.query.skip || 0;
+    const name = req.query.name || "";
+
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}&limit=${limit}&name${name}&skip=${skip}`
     );
     console.log(response.data.results);
 
